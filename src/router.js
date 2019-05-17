@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import registro from './views/registro.vue'
+import regproductos from './views/regproductos.vue'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/registro',
       name: 'registro',
       component: () => import('./views/registro.vue')
+    },
+    {
+      path: '/regproductos',
+      name: 'regproductos',
+      component: () => import('./views/regproductos.vue')
     }
   ]
 })

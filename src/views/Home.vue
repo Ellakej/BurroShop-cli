@@ -37,7 +37,7 @@
           </v-layout>
         </v-img>
         <v-card-title>
-          <div class="text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, facilis vitae. Quibusdam porro modi, nemo minus dolore nobis ipsa enim, placeat, laboriosam exercitationem totam architecto ab illo labore sed voluptatum.</div>
+          <div class="text-truncate"> {{productos.nombre}} </div>
         </v-card-title>
         <v-spacer></v-spacer>
         <v-btn
@@ -60,6 +60,11 @@
 <script>
   export default {
     data: () => ({
+      productos:
+      {
+        nombre: "Mazapan",
+        precio: "20.00"
+      },
       images: 
       {
         sample: require('../assets/com.jpg')

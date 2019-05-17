@@ -72,7 +72,7 @@
         <v-subheader class="mt-3 grey--text text--darken-1">PRODUCTOS</v-subheader>
 
         <!--Menu Comida-->
-        <v-list-group prepend-icon="android" no-action sub-group>
+        <v-list-group prepend-icon="fas fa-pizza-slice" no-action sub-group>
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-title>Comida</v-list-tile-title>
@@ -94,7 +94,7 @@
         </v-list-group>
         
         <!--Menu Materiales-->
-        <v-list-group sub-group no-action prepend-icon="android">
+        <v-list-group sub-group no-action prepend-icon="fas fa-tools">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-title>Materiales</v-list-tile-title>
@@ -114,7 +114,7 @@
         </v-list-group>
 
         <!--Menu Libros-->
-        <v-list-group sub-group no-action prepend-icon="android">
+        <v-list-group sub-group no-action prepend-icon="fas fa-book">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-title>Libros</v-list-tile-title>
@@ -134,7 +134,7 @@
         </v-list-group>
 
         <!--Menu Segunda Mano-->
-        <v-list-group sub-group no-action prepend-icon="android">
+        <v-list-group sub-group no-action prepend-icon="fas fa-mobile-alt">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-title>Segunda Mano</v-list-tile-title>
@@ -154,7 +154,7 @@
         </v-list-group>
 
         <!--Menu Renta-->
-        <v-list-group sub-group no-action prepend-icon="android">
+        <v-list-group sub-group no-action prepend-icon="fas fa-hand-holding-usd">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-title>Renta</v-list-tile-title>
@@ -227,37 +227,37 @@ export default {
       drawer: true,
       usuario: {nombre: 'Ricardo Garcia King'},
       perfiles: [
-        ['Iniciar Sesion', 'android', '/'],
-        ['Registrarse', 'android', '/registro']
+        ['Iniciar Sesion', 'fas fa-address-card', '/'],
+        ['Registrarse', 'fas fa-sign-in-alt', '/registro']
       ],
       comidas: [
-        ['Preparada', 'people_outline', '/'],
-        ['Rápida', 'settings', '/'],
-        ['Snacks', 'android', '/'],
-        ['Bebidas', 'android', '/'],
-        ['Botanas', 'android', '/']
+        ['Preparada', 'fas fa-utensils', '/'],
+        ['Rápida', 'fas fa-hamburger', '/'],
+        ['Snacks', 'fas fa-ice-cream', '/'],
+        ['Bebidas', 'fas fa-glass-whiskey', '/'],
+        ['Botanas', 'fas fa-cookie-bite', '/']
       ],
       materiales: [
-        ['Carreras', 'android', '/'],
-        ['Otros', 'android', '/']
+        ['Carreras', 'fas fa-graduation-cap', '/'],
+        ['Otros', 'fas fa-store', '/']
       ],
       libros: [
-        ['Carreras', 'android', '/'],
-        ['Básicas', 'android', '/'],
-        ['Humanisticas', 'android', '/'],
-        ['Otros', 'android', '/']
+        ['Carreras', 'fas fa-graduation-cap', '/'],
+        ['Básicas', 'fas fa-superscript', '/'],
+        ['Humanisticas', 'fas fa-users', '/'],
+        ['Otros', 'fas fa-store', '/']
       ],
       segmano: [
-        ['Laboratorio', 'android', '/'],
-        ['Carreras', 'android', '/'],
-        ['Dibujo', 'android', '/'],
-        ['Miscelaneo', 'android', '/']
+        ['Laboratorio', 'fas fa-flask', '/'],
+        ['Carreras', 'fas fa-graduation-cap', '/'],
+        ['Dibujo', 'fas fa-palette', '/'],
+        ['Miscelaneo', 'fas fa-random', '/']
       ],
       rentas: [
-        ['Laboratorio', 'android', '/'],
-        ['Carreras', 'android', '/'],
-        ['Dibujo', 'android', '/'],
-        ['Miscelaneo', 'android', '/']
+        ['Laboratorio', 'fas fa-flask', '/'],
+        ['Carreras', 'fas fa-graduation-cap', '/'],
+        ['Dibujo', 'fas fa-palette', '/'],
+        ['Miscelaneo', 'fas fa-random', '/']
       ],
       mini: true,
       right: null,
