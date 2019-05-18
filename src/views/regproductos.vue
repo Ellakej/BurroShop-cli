@@ -3,7 +3,7 @@
         <v-layout align-center column fluid >
             <!--Titulo-->
             <v-flex>
-                <v-card height="70" flat> 
+                <v-card height="70" flat img="./"> 
                     <v-layout align-center justify-space-around row fill-height pa-2>
                         <v-card-title primary-title>
                             <span class="text-uppercase headline">
@@ -11,7 +11,7 @@
                             </span>
                         </v-card-title>
                             <span>
-                                <img src="../assets/iconbox.png" alt="iconbox" width="55px" height="50px" pa-5>
+                                <v-icon large>fas fa-box-open</v-icon>
                             </span>
                     </v-layout>
                 </v-card>
@@ -37,6 +37,7 @@
                                 <div v-for="n in categorias" :key="n">
                                     <div v-if="n === select">
                                         <v-select
+                                        v-model="subselect"
                                         :items="subcategorias[convertirIndice(n)]"
                                         label="Subcategoria"
                                         required
@@ -44,6 +45,7 @@
                                     </div>
                                 </div>
                             <v-divider></v-divider>
+                            
                             <v-text-field
                             v-model="name"
                             :error-messages="nameErrors"
@@ -58,15 +60,64 @@
                             v-model="price"
                             :error-messages="priceErrors"
                             :counter="4"
-                            label="Precio"
+                            label="Precio en MXN"
                             required
                             @input="$v.price.$touch()"
                             @blur="$v.price.$touch()"
                             ></v-text-field>
+                            <v-textarea
+                            v-model="descripcion"
+                            :error-messages="descripcionErrors"
+                            label="Descripcion"
+                            required
+                            counter
+                            maxlength="300"
+                            @input="$v.descripcion.$touch()"
+                            @blur="$v.descripcion.$touch()"
+                            ></v-textarea>
+                            <span>
+                                <p class="text-uppercase subheading">Fotografia</p>
+                                <v-btn
+                                    :loading="loading3"
+                                    :disabled="loading3"
+                                    color="guinda"
+                                    class="white--text"
+                                    @click="loader = 'loading3'"
+                                >
+                                    <v-icon>cloud_uploading</v-icon>
+                                    Subir
+                                </v-btn>
+                            </span>
                         </form>
-                            
                     </v-layout>
-                    
+                </v-card>
+            </v-flex>
+
+            <v-flex pt-2>
+                <v-card>
+                    <v-layout pa-2>
+                            <v-btn flat
+                            to="./"
+                            >
+                                <v-icon>fas fa-save</v-icon>
+                                &nbsp;
+                                Guardar
+                            </v-btn>
+                            <v-btn flat
+                            @click="limpiarDatos"
+                            >
+                                <v-icon>fas fa-broom</v-icon>
+                                &nbsp;
+                                Limpiar
+                            </v-btn>
+                            <v-btn flat
+                            to="./"
+                            >
+                                <v-icon>fas fa-times-circle</v-icon>
+                                &nbsp;
+                                Salir
+                            </v-btn>
+                    </v-layout>
                 </v-card>
             </v-flex>
             
@@ -77,22 +128,34 @@
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate'
-  import { required, maxLength, email, numeric, maxValue } from 'vuelidate/lib/validators'
+//import Firebase from 'firebase'
+//import config from '../db'
+import { validationMixin } from 'vuelidate'
+import { required, maxLength, email, numeric, maxValue } from 'vuelidate/lib/validators'
+
+//let app = Firebase.initializeApp(config);
+//let db = app.database();
+//let regproductos = db.ref('productos');
+
+
 
 
 export default {
     mixins: [validationMixin],
-
     validations: {
         name: { required, maxLength: maxLength(30) },
         select: { required },
-        price: { required, numeric, maxValue: maxValue(9999) }
+        price: { required, numeric, maxValue: maxValue(9999) },
+        descripcion: { required }
     },
     data: () => ({
+        loader: null,
+        loading3: false,
+        descripcion: '',
         name: '',
         price: null,
-        select: null,
+        select: '',
+        subselect: null,
         categorias: [
             'Comida',
             'Materiales',
@@ -108,6 +171,16 @@ export default {
             ['Laboratorio', 'Carreras', 'Dibujo', 'Miscelaneo']
         ]
     }),
+    watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
+
+        setTimeout(() => (this[l] = false), 3000)
+
+        this.loader = null
+      }
+    },
     computed: {
         selectErrors () {
         const errors = []
@@ -125,9 +198,15 @@ export default {
       priceErrors () {
         const errors = []
         if (!this.$v.price.$dirty) return errors
-        !this.$v.price.maxValue && errors.push('El precio no debe exceder de $9,999')
+        !this.$v.price.maxValue && this.$v.price.numeric && errors.push('El precio no debe exceder de $9,999')
         !this.$v.price.numeric && errors.push('Debe ser numero')
         !this.$v.price.required && errors.push('Es necesario un precio.')
+        return errors
+      },
+      descripcionErrors() {
+        const errors = []
+        if (!this.$v.descripcion.$dirty) return errors
+        !this.$v.descripcion.required && errors.push('Es necesaria una descripcion')
         return errors
       }
     },
@@ -138,8 +217,54 @@ export default {
               if(this.categorias[cons] === n)
               return cons;
           }
-      }
+      },
+      limpiarDatos(){
+          this.select = null;
+          this.subselect = null;
+          this.name = '';
+          this.price = null;
+          this.descripcion = '';
+      },
     }
     
 }
 </script>
+
+<style>
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

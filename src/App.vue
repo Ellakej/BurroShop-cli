@@ -1,6 +1,6 @@
 <template>
-  <v-app > 
-    
+  <v-app >
+
     <!--Barra superior (Header)-->
     <v-toolbar color="guinda" dark app>
      <v-toolbar-side-icon v-if="!drawer"  @click="drawer = !drawer"></v-toolbar-side-icon>
@@ -17,7 +17,7 @@
       ></v-text-field>
 
     </v-toolbar>
-    
+
     <!--Barra de Navegacion Lateral-->
     <v-navigation-drawer app v-model="drawer" :mini-variant.sync="mini" hide-overlay floating>
         <v-list class="pa-1" align-center>
@@ -47,8 +47,8 @@
         </v-list-tile>
       </v-list>
 
-      
-      
+
+
 
       <v-list class="pt-0" dense >
         <v-divider></v-divider>
@@ -66,7 +66,7 @@
               <v-icon v-text="perfil[1]"></v-icon>
             </v-list-tile-action>
             <v-list-tile-title v-text="perfil[0]"></v-list-tile-title>
-            
+
           </v-list-tile>
 
         <v-subheader class="mt-3 grey--text text--darken-1">PRODUCTOS</v-subheader>
@@ -89,10 +89,10 @@
               <v-icon v-text="comida[1]"></v-icon>
             </v-list-tile-action>
             <v-list-tile-title v-text="comida[0]"></v-list-tile-title>
-            
+
           </v-list-tile>
         </v-list-group>
-        
+
         <!--Menu Materiales-->
         <v-list-group sub-group no-action prepend-icon="fas fa-tools">
           <template v-slot:activator>
@@ -189,9 +189,9 @@
           </v-list-tile-content>
         </v-list-tile>-->
       </v-list>
-      
+
     </v-navigation-drawer>
-    
+
 
     <v-content>
       <router-view/>
@@ -201,29 +201,19 @@
 
 <script>
   import finder from './components/finder.vue'
-  import Firebase from 'firebase'
-  import config from './config.js'
-
-  let app = Firebase.initializeApp(config);
-  let db = app.database();
-  let usuariosRef = db.ref('usuarios');
 
 
 
 export default {
 
-  Firebase: {
-    usuarios: usuariosRef
-  },
-
   components:{
     finder
   },
-  
+
 
   name: 'App',
   data () {
-    return {  
+    return {
       drawer: true,
       usuario: {nombre: 'Ricardo Garcia King'},
       perfiles: [
