@@ -32,6 +32,6 @@ export default new Router({
       path: '/regproductos',
       name: 'regproductos',
       component: () => import('./views/regproductos.vue')
-    }
+    },
   ]
 })

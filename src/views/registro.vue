@@ -8,6 +8,16 @@
           </v-card-title>
             <form>
               <v-text-field
+                v-model="boleta"
+                :error-messages="boletaErrors"
+                :counter="10"
+                label="Boleta"
+                id="boleta"
+                required
+                @input="$v.boleta.$touch()"
+                @blur="$v.boleta.$touch()"
+              ></v-text-field>
+              <v-text-field
                 v-model="name"
                 :error-messages="nameErrors"
                 :counter="50"
@@ -24,13 +34,34 @@
                 @input="$v.email.$touch()"
                 @blur="$v.email.$touch()"
               ></v-text-field>
+              <v-text-field
+                v-model="password"
+                :error-messages="passwordErrors"
+                label="Password"
+                required
+                id="password"
+                @input="$v.password.$touch()"
+                @blur="$v.password.$touch()"
+                type="password"
+              ></v-text-field>
+              <v-text-field
+              v-model="confirmpassword"
+                :error-messages="cpasswordErrors"
+                label="Confirm Password"
+                required
+                id="confirmpassword"
+                @input="$v.confirmpassword.$touch()"
+                @blur="$v.confirmpassword.$touch()"
+                type="password"
+              ></v-text-field>
               <v-select
                 v-model="select"
                 :items="items"
                 :error-messages="selectErrors"
                 label="Semestre"
+                id="select"
                 required
-                @change="$v.select.$touch()"
+                @change="$v.select.$tocuh()"
                 @blur="$v.select.$touch()"
               ></v-select>
               <v-checkbox
@@ -52,16 +83,19 @@
 </template>
 
 <script>
-  
+
   import { validationMixin } from 'vuelidate'
-  import { required, maxLength, email } from 'vuelidate/lib/validators'
+  import { required, maxLength, email,minLength } from 'vuelidate/lib/validators'
 
   export default {
     mixins: [validationMixin],
 
     validations: {
+      boleta:{required,minLength:minLength(10),maxLength:maxLength(10)},
       name: { required, maxLength: maxLength(50) },
       email: { required, email },
+      password:{required,minLength:minLength(5)},
+      confirmpassword:{required,minLength:minLength(5)},
       select: { required },
       checkbox: {
         checked (val) {
@@ -71,8 +105,11 @@
     },
 
     data: () => ({
+      boleta:'',
       name: '',
       email: '',
+      password:'',
+      confirmpassword:'',
       select: null,
       items: [
         'Primer Semestre',
@@ -86,6 +123,14 @@
     }),
 
     computed: {
+      boletaErrors () {
+        const errors = []
+        if (!this.$v.boleta.$dirty) return errors
+        !this.$v.boleta.maxLength && errors.push('Boleta Incorrecta')
+        !this.$v.boleta.required && errors.push('Es Necesario tu boleta')
+        !this.$v.boleta.minLength && errors.push('Boleta Incorrecta')
+        return errors
+      },
       checkboxErrors () {
         const errors = []
         if (!this.$v.checkbox.$dirty) return errors
@@ -111,15 +156,39 @@
         !this.$v.email.email && errors.push('Introduce un e-mail correcto')
         !this.$v.email.required && errors.push('Es necesario un e-mail')
         return errors
+      },
+      passwordErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.minLength && errors.push('Contraseña muy corta')
+        !this.$v.password.required && errors.push('Contraseña Necesaria')
+        return errors
+      },
+      cpasswordErrors () {
+        const errors = []
+        if (!this.$v.confirmpassword.$dirty) return errors
+        //!this.$v.confirmpassword.minLength && errors.push('Contraseña muy Corta')
+        !this.$v.confirmpassword.required && errors.push('Contraseña Necesaria')
+        if(document.getElementById('password').value != document.getElementById('confirmpassword').value)
+        errors.push('Contraseñas diferentes')
+        return errors
       }
+      
     },
+    
 
     methods: {
+      SemestreSelect: function(){
+        var select=document.getElementById('select').value;
+        console.log(select);
+      },
       submit () {
         this.$v.$touch()
+        console.log(document.getElementById('boleta').value);
       },
       clear () {
         this.$v.$reset()
+        this.boleta=""
         this.name = ''
         this.email = ''
         this.select = null
