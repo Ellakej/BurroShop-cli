@@ -61,7 +61,7 @@
                 label="Semestre"
                 id="select"
                 required
-                @change="$v.select.$tocuh()"
+                @change="$v.select.$touch()"
                 @blur="$v.select.$touch()"
               ></v-select>
               <v-checkbox
@@ -83,9 +83,12 @@
 </template>
 
 <script>
-
+  import app from '../config';
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email,minLength } from 'vuelidate/lib/validators'
+  var AES=require('crypto-js/aes');
+  var CryptoJS=require('crypto-js');
+  var db=app.database();
 
   export default {
     mixins: [validationMixin],
@@ -167,7 +170,6 @@
       cpasswordErrors () {
         const errors = []
         if (!this.$v.confirmpassword.$dirty) return errors
-        //!this.$v.confirmpassword.minLength && errors.push('Contraseña muy Corta')
         !this.$v.confirmpassword.required && errors.push('Contraseña Necesaria')
         if(document.getElementById('password').value != document.getElementById('confirmpassword').value)
         errors.push('Contraseñas diferentes')
@@ -178,13 +180,26 @@
     
 
     methods: {
-      SemestreSelect: function(){
-        var select=document.getElementById('select').value;
-        console.log(select);
-      },
       submit () {
         this.$v.$touch()
-        console.log(document.getElementById('boleta').value);
+         db.ref("Usuario/"+this.boleta).once("value", snapshot => {
+           if (snapshot.exists()){
+             console.log('Existe el usuario')
+             }else{
+               var data= '08Burroshop08';
+               this.Datos.contraseña = CryptoJS.AES.encrypt(password,data).toString();
+               db.ref("Usuario/"+this.boleta).set(
+                 {
+                   nombre:this.name,
+                   contraseña:this.password,
+                   email:this.email,
+                   semestre:this.select,
+                   },function(error){
+                     if(error){
+                       console.log('Error Al Guardar')
+                       }else{
+                         console.log('Usuario Registrado')
+                         }})}});
       },
       clear () {
         this.$v.$reset()
@@ -196,4 +211,5 @@
       }
     }
   }
+
 </script>

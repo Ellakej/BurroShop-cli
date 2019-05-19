@@ -201,20 +201,12 @@
 
 <script>
   import finder from './components/finder.vue'
-  import Firebase from 'firebase'
   import config from './config.js'
 
-  let app = Firebase.initializeApp(config);
-  let db = app.database();
-  let usuariosRef = db.ref('usuarios');
 
 
 
 export default {
-
-  Firebase: {
-    usuarios: usuariosRef
-  },
 
   components:{
     finder
