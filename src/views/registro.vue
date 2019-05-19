@@ -12,7 +12,6 @@
                 :error-messages="boletaErrors"
                 :counter="10"
                 label="Boleta"
-                id="boleta"
                 required
                 @input="$v.boleta.$touch()"
                 @blur="$v.boleta.$touch()"
@@ -182,24 +181,26 @@
     methods: {
       submit () {
         this.$v.$touch()
-         db.ref("Usuario/"+this.boleta).once("value", snapshot => {
+        db.ref("Usuario/"+this.boleta).once("value", snapshot => {
            if (snapshot.exists()){
              console.log('Existe el usuario')
              }else{
                var data= '08Burroshop08';
-               this.Datos.contraseña = CryptoJS.AES.encrypt(password,data).toString();
+               var cifrado = CryptoJS.AES.encrypt(this.password,data).toString();
                db.ref("Usuario/"+this.boleta).set(
                  {
                    nombre:this.name,
-                   contraseña:this.password,
+                   contraseña:cifrado,
                    email:this.email,
                    semestre:this.select,
                    },function(error){
                      if(error){
                        console.log('Error Al Guardar')
                        }else{
-                         console.log('Usuario Registrado')
-                         }})}});
+                         console.log('Usuario Registrado')}})}
+
+                         });
+                         this.$v.$reset()
       },
       clear () {
         this.$v.$reset()
@@ -211,5 +212,4 @@
       }
     }
   }
-
 </script>
