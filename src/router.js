@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import registro from './views/registro.vue'
 import regproductos from './views/regproductos.vue'
 import chat from './views/chat.vue'
+import resultados from './views/resultados.vue'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/chat',
       name: 'chat',
       component: () => import('./views/chat.vue')
+    },
+    {
+      path: '/resultados',
+      name: 'resultados',
+      component: () => import('./views/resultados.vue')
     }
   ]
 })

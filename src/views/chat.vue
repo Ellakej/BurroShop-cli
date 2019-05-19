@@ -164,7 +164,13 @@ let mismensajes = db.ref('usuario/mensajes');
         enviarMensaje(){
           mismensajes.push(this.mensaje);
           this.mensaje = '';
+        },
+        recibirMensaje(){
+          mismensajes
         }
+      },
+      created(){
+        this.recibirMensaje();
       }
     }
 
