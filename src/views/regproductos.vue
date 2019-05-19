@@ -46,6 +46,7 @@
                                 </div>
                             <v-divider></v-divider>
                             
+                            <!--Nombre del Producto-->
                             <v-text-field
                             v-model="name"
                             :error-messages="nameErrors"
@@ -56,6 +57,7 @@
                             @blur="$v.name.$touch()"
                             ></v-text-field>
                             
+                            <!--Precio-->
                             <v-text-field
                             v-model="price"
                             :error-messages="priceErrors"
@@ -65,6 +67,8 @@
                             @input="$v.price.$touch()"
                             @blur="$v.price.$touch()"
                             ></v-text-field>
+
+                            <!--Descripcion-->
                             <v-textarea
                             v-model="descripcion"
                             :error-messages="descripcionErrors"
@@ -128,14 +132,9 @@
 </template>
 
 <script>
-//import Firebase from 'firebase'
-//import config from '../db'
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email, numeric, maxValue } from 'vuelidate/lib/validators'
 
-//let app = Firebase.initializeApp(config);
-//let db = app.database();
-//let regproductos = db.ref('productos');
 
 
 
