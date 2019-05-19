@@ -1,12 +1,26 @@
 <template>
   <v-container >
-    <v-layout row align-center justify-center>
+    <v-layout align-space-between justify-space-around row fill-height>
+      <v-layout class="guinda white--text" align-start justify-center column>
+          <v-card class="guinda white--text" flat>
+            <v-flex pa-5>
+              <v-flex class="display-1">Registrate</v-flex>
+              <v-flex class="headline" pt-3>Es gratis... <3</v-flex>
+            </v-flex>
+            
+          </v-card>
+          
+      </v-layout>
+      
+      
       <v-flex>
         <v-card light>
+          <v-layout pa-4>
+            <v-flex>
           <v-card-title>
             Registrate
           </v-card-title>
-            <form>
+            <form >
               <v-text-field
                 v-model="name"
                 :error-messages="nameErrors"
@@ -45,6 +59,8 @@
               <v-btn @click="submit">Registrate</v-btn>
               <v-btn @click="clear">Limpiar</v-btn>
             </form>
+            </v-flex>
+            </v-layout>
         </v-card>
       </v-flex>
     </v-layout>
