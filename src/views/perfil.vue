@@ -40,7 +40,7 @@
                                     Historial
                                 </v-card-title>
                                 <v-card-actions>
-
+                                    <v-btn @click="logear">Login</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-flex>
@@ -64,7 +64,6 @@
 
 
 <script>
-import store from '../store'
 import app from '../config';
 import { createCipher } from 'crypto';
 var db = app.database();
@@ -85,8 +84,15 @@ export default {
             }
         }
     },
-    created(){
-       console.log(store.state.login);
+    methods:{
+        logear(){
+            this.$store.state.login = !this.$store.state.login;
+        }
+    },
+    computed: {
+        count() {
+            return this.$store.state.login;
+        }
     }
 }
 </script>

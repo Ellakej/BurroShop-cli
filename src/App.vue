@@ -71,7 +71,7 @@
 
 
 
-        <v-flex v-if="login">
+        <v-flex v-if="this.$store.state.login">
         <v-subheader class="mt-3 grey--text text--darken-1">PRODUCTOS</v-subheader>
 
         <!--Menu Comida-->
@@ -265,8 +265,10 @@ export default {
       }
     }
   },
-  created(){
-    this.login = this.$store.state.login;
+  computed: {
+    count() {
+      return this.$store.state.count;
+    }
   }
 }
 </script>
