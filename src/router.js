@@ -5,6 +5,7 @@ import registro from './views/registro.vue'
 import regproductos from './views/regproductos.vue'
 import resultados from './views/resultados.vue'
 import producto from './views/producto.vue'
+import perfil from './views/perfil.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/producto',
       name: 'producto',
       component: () => import('./views/producto.vue')
+    },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: () => import('./views/perfil.vue')
     }
     
   ]

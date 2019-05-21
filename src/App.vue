@@ -69,6 +69,9 @@
 
           </v-list-tile>
 
+
+
+        <v-flex v-if="login">
         <v-subheader class="mt-3 grey--text text--darken-1">PRODUCTOS</v-subheader>
 
         <!--Menu Comida-->
@@ -172,6 +175,7 @@
           <v-list-title v-text="renta[0]"></v-list-title>
           </v-list-tile>
         </v-list-group>
+        </v-flex>
 
 
 
@@ -214,6 +218,7 @@ export default {
   name: 'App',
   data () {
     return {
+      login: null,
       drawer: true,
       usuario: {nombre: 'Ricardo Garcia King'},
       perfiles: [
@@ -259,6 +264,10 @@ export default {
         password: ''
       }
     }
+  },
+  created(){
+    this.login = this.$store.state.login;
   }
 }
 </script>
+
